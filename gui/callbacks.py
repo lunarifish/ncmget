@@ -4,6 +4,7 @@ from network_ import get_song_information, build_url, download
 import time
 
 
+
 class ui_get_song_information(QThread):
     def __init__(self, app):
         super().__init__()
@@ -26,10 +27,13 @@ class ui_get_song_information(QThread):
 
         self.app.btn_inf.setEnabled(True)
 
+
 def ui_get_song_information_async(app):
     t = ui_get_song_information(app)
     t.start()
     t.exec()
+
+
 
 class ui_download(QThread):
     def __init__(self, app):
@@ -42,7 +46,7 @@ class ui_download(QThread):
 
         input_text = str(self.app.edit.text())
         outer_url = build_url(input_text, True)
-        print("source:    ", input_text)
+        print("source:    ", build_url(input_text, False))
         print("redirect:  ", outer_url)
         print("fetching")
 

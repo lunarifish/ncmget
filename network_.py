@@ -9,6 +9,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 
 
+
 def handle_302(src: str) -> str:
     resp = requests.get(src, timeout=(3, 7))
     if len(resp.history) > 0:
@@ -16,9 +17,10 @@ def handle_302(src: str) -> str:
     return location_url
 
 
+
 # 构建外链/歌曲链接 outer=True则构建外链 outer=False则构建歌曲链接
 def build_url(arg: str, outer: bool) -> str:
-    # 参数是歌曲链接
+    # arg是歌曲链接
     if "music.163.com/song?id=" in arg:
         song_id_start = arg.find("song?id=") + 8    # song id开始的位置
 
@@ -32,7 +34,7 @@ def build_url(arg: str, outer: bool) -> str:
         
         return handle_302(f"http://music.163.com/song/media/outer/url?id={song_id}.mp3") if outer else f"https://music.163.com/song?id={song_id}"
 
-    # 参数是song id
+    # arg是song id
     elif arg.isnumeric():
         return handle_302(f"http://music.163.com/song/media/outer/url?id={arg}.mp3") if outer else f"https://music.163.com/song?id={arg}"
 
